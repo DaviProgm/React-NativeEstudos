@@ -4,24 +4,27 @@ import { Participant } from "../../components/Participant"
 import { useState } from "react"
 
 export default function Home() {
-    const [adicionar, setAdicionar] = useState(['joão']);
-
-    const participants = ['davi']
+    const [participants, setParticipants] = useState<string[]>(['']);
+    const [participantName,setParticipantName]  = useState('')
 
     function handleParticipantAdd() {
-        if (participants.includes("jorge")) {
+        if (participants.includes(participantName)) {
             return Alert.alert("Erro ao cadastrar", "Esse participante já está adicionado a sua lista ")
         }
-        participants.push('')
+        setParticipants(prevState =>[...prevState, participantName])
+        setParticipantName('')
     }
     function handleParticipanteRemove(name: string) {
+
+
         Alert.alert("Remover", `Deseja remover o participante ${name}`, [
             {
-                text: 'sim',
-                onPress: () => Alert.alert("Deletado")
+                text: 'Excluir',
+                onPress:() => setParticipants(prevState => prevState.filter(Participant =>  Participant !== name))
+
             },
             {
-                text: 'excluir',
+                text: 'Não',
                 style: 'cancel'
             }
         ])
@@ -41,6 +44,8 @@ export default function Home() {
                     style={styles.input}
                     placeholder="Nome do participante"
                     placeholderTextColor={'gray'}
+                    onChangeText={e => setParticipantName(e)}
+                    value={participantName}
                 />
                 <TouchableOpacity style={styles.button} onPress={handleParticipantAdd}>
                     <Text style={styles.buttonText}>
