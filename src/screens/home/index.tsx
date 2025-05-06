@@ -15,8 +15,6 @@ export default function Home() {
         setParticipantName('')
     }
     function handleParticipanteRemove(name: string) {
-
-
         Alert.alert("Remover", `Deseja remover o participante ${name}`, [
             {
                 text: 'Excluir',
@@ -58,16 +56,15 @@ export default function Home() {
                 data={participants}
                 keyExtractor={item => item}
                 renderItem={({ item }) => (
-                    <Participant key={item} name={item} onRemove={() => handleParticipanteRemove(item)} />
-
+                    <Participant name={item} onRemove={() => handleParticipanteRemove(item)} />
                 )}
+                showsHorizontalScrollIndicator={false}
                 ListEmptyComponent={() => (
-                    <text style={styles.listEmptyText}>
-                        Não tem ninguem que vai nesse evento
-                    </text>
+                    <Text style={styles.listEmptyText}>
+                        Não tem ninguém que vai nesse evento
+                    </Text>
                 )}
             />
-
         </View>
     )
 }
